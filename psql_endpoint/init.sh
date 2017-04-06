@@ -19,7 +19,7 @@ SERVERPORT_PROP="s/security\.server\.port=.*/security\.server\.port=${SERVER_POR
 ## Secure server port
 SERVERSECUREPORT_PROP="s/security\.server\.securePort=.*/security\.server\.securePort=${SERVER_SECURE_PORT:="8443"}/g"
 ## DB URL
-DBURL_PROP="s/jdbc\.url=.*/jdbc\.url=jdbc:postgresql:\/\/$DB_URL\/$DB_NAME\/?autoDeserialize=true/g"
+DBURL_PROP="s/jdbc\.url=.*/jdbc\.url=jdbc:postgresql:\/\/$DB_URL\/$DB_NAME?autoDeserialize=true/g"
 ## Database username
 DBUSERNAME_PROP="s/jdbc\.username=.*/jdbc\.username=${DB_USERNAME:="odk_user"}/g"
 ## Database password
