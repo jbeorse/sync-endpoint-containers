@@ -2,10 +2,10 @@ To build the image run the following command inside the root directory:
 docker build -t <orgname>/sqlserver_endpoint .
 
 After it finished building, to run the container you will need to be ready to set the following variables:
-SERVER_URL=<address of your server instance>
+SERVER_URL=<address of your server instance> - If you are running on your local machine, this is your IP Address
 SERVER_PORT=<port to access your server> - Default is 8080
 SERVER_SECURE_PORT=<port to securely access your server> - Default is 8443
-DB_URL=<address of the database server>
+DB_URL=<address of the database server> - If you are connecting to your local machine, this is your IP Address
 DB_NAME=<name of the database configured on your server>
 DB_USERNAME=<username configured to own the database>
 DB_PASSWORD=<password of database owner>
