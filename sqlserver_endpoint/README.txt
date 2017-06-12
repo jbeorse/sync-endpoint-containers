@@ -10,4 +10,4 @@ Upload out.tar to the server and load it with `cat out.tar | sudo docker load`
 
 Upload real.sh to the server and run it to start the server
 
-then configure docker service
+Then configure docker service, just change "docker run -d" to "docker service create" in real.sh and run it again. This will install a service that will automatically restart when it fails or when the server is restarted. To see all the registered services do `docker service list` and you can delete an old one with `docker service rm <id>`
