@@ -2,6 +2,8 @@ First update everything labeled XXXXX in real.sh
 
 You'll need copies of https_cert.crt ldap_cert.cer tomcat_https.keystore tomcat.keystore in the working directory. We still don't know if we really actually need https_cert.crt
 
+tomcat_https.keystore should have the cert and also the intermediate cert in it, add them using the instructions here: https://www.godaddy.com/help/tomcat-generate-csrs-and-install-certificates-5239
+
 Build with `sudo docker build -t mezuri/sqlserver_endpoint .`
 
 Save it to a file with `sudo docker save mezuri/sqlserver_endpoint -o out.tar`
