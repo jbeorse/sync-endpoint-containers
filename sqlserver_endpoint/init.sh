@@ -67,6 +67,9 @@ zip -r $SETTINGSJARPATH *
 mkdir $RESULTPATH
 cp -r $ROOTPATH/* $RESULTPATH
 
+cp $BASEPATH/server.xml /usr/local/tomcat/conf/server.xml
+cp $BASEPATH/tomcat_https.keystore /usr/local/tomcat/conf/tomcat.keystore
 
 # Start up tomcat
  /bin/bash /usr/local/tomcat/bin/catalina.sh run
+
