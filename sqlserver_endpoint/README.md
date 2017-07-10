@@ -29,7 +29,7 @@ SECURE_CHANNEL_TYPE=<Set to secure if using SSL>
 You can spin up an instance with the following command (with example values for the environment variables):
 "docker run -d -p 80:8080 -e SERVER_URL="0.0.0.0" -e SERVER_PORT="80" -e SERVER_SECURE_PORT="8443" -e DB_URL="mezuri-r1.database.windows.net:1433" -e DB_NAME='odk_prod' -e DB_USERNAME="mitch_db_login@mezuricloud.com" -e DB_PASSWORD="PASSWORD" -e DB_SCHEMA="clarice_test" -e LDAP_DOMAIN_L1="com" -e LDAP_DOMAIN_L2="mezuricloud" -e LDAP_USERNAME="ldap_reader@mezuricloud.com" -e LDAP_PASSWORD="PASSWORD" -e REALM_STRING="opendatakit.org ODK Aggregate" -e GROUP_PREFIX="mitch_prod" -e CHANNEL_TYPE="ANY_CHANNEL" -e SECURE_CHANNEL_TYPE="ANY_CHANNEL"  odk/sqlserver_endpoint"
 
-You can upgrade the aggregate version by dropping in a new ODKAggregate.war file. But be aware that the init.sh script depends on specific file paths, so please double check that you have not broken that script.
+You can modify the aggregate version by specifying yours git repositiory url to the `REPO` build arg and your branch to the `REPO_BRANCH` build arg.
 
 To run with https support, 
  - build a keystore containing your certificate by following instructions [here](https://www.godaddy.com/help/tomcat-generate-csrs-and-install-certificates-5239)
