@@ -1,6 +1,6 @@
 FROM maven:3-jdk-8 as compiler
 
-ARG REPO=https://github.com/linl33/experimental-sync-endpoint
+ARG REPO=https://github.com/jbeorse/experimental-sync-endpoint
 ARG REPO_BRANCH=sync-endpoint
 ARG AGG_VAR=sqlserver
 
