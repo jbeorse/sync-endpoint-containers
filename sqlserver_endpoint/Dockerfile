@@ -3,7 +3,7 @@ FROM maven:3-jdk-8 as compiler
 ARG REPO=https://github.com/linl33/experimental-sync-endpoint
 ARG REPO_BRANCH=container-config
 
-RUN git clone -b ${REPO_BRANCH} ${REPO} sync
+RUN git clone -b ${REPO_BRANCH} --single-branch --depth=1 ${REPO} sync
 
 # builds the mysql variant but the war works for all 3 databases  
 RUN cd /sync/src/main/libs && \
