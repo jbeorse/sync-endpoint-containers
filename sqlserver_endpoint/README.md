@@ -3,41 +3,28 @@
 To build the image run the following command inside the root directory:
 `docker build -t <orgname>/sqlserver_endpoint .`
 
+You can modify the aggregate version by specifying your git repositiory url to the `REPO` build arg and your branch to the `REPO_BRANCH` build arg.
+
 ## Run 
 
-After it finished building, to run the container you will need to be ready to set the following variables:
+After it finished building, create `security.properties`, `jdbc.properties` and `logging.properties` to override the [default configuration](https://github.com/jbeorse/experimental-sync-endpoint/tree/sync-endpoint/src/main/resources/common). 
 
-```
-SERVER_URL=<address of your server instance> - If you are running on your local machine, this is your IP Address
-SERVER_PORT=<port to access your server> - Default is 8080
-SERVER_SECURE_PORT=<port to securely access your server> - Default is 8443
-DB_URL=<address of the database server> - If you are connecting to your local machine, this is your IP Address
-DB_NAME=<name of the database configured on your server>
-DB_USERNAME=<username configured to own the database>
-DB_PASSWORD=<password of database owner>
-DB_SCHEMA=<database schema name>
-LDAP_DOMAIN_L1=<First level of the LDAP domain (typically com)>
-LDAP_DOMAIN_L2=<Second level of the LDAP domanin (something like mezuricloud)>
-LDAP_USERNAME=<LDAP username>
-LDAP_PASSWORD=<LDAP password>
-REALM_STRING=<Realm string for instance>
-GROUP_PREFIX=<Prefix for ODK groups>
-CHANNEL_TYPE=<Set to secure if using SSL>
-SECURE_CHANNEL_TYPE=<Set to secure if using SSL>
-```
+After creating the files, use these commands to make the files available to the container.
+ - `docker secrets create org.opendatakit.aggregate.security.properties PATH_TO_security.properties`
+ - `docker secrets create org.opendatakit.aggregate.jdbc.properties PATH_TO_jdbc.properties`
+ - `docker config create org.opendatakit.aggregate.logging.properties PATH_TO_logging.properties`
 
-You can spin up an instance with the following command (with example values for the environment variables):
+ Select your preferred data persistence method with the `spring.profiles.active` environment variable. Currently supported options are `mysql`, `postgres` and `sqlserver`. 
 
-```
-docker service create -p 80:8080 -e SERVER_URL="0.0.0.0" -e SERVER_PORT="80" -e SERVER_SECURE_PORT="8443" -e DB_URL="dbname.database.windows.net:1433" -e DB_NAME='odk_prod' -e DB_USERNAME="login@domain.com" -e DB_PASSWORD="PASSWORD" -e DB_SCHEMA="schema_name" -e LDAP_DOMAIN_L1="com" -e LDAP_DOMAIN_L2="domain" -e LDAP_USERNAME="ldap_reader@domain.com" -e LDAP_PASSWORD="PASSWORD" -e REALM_STRING="opendatakit.org ODK Aggregate" -e GROUP_PREFIX="ldap_group" -e CHANNEL_TYPE="ANY_CHANNEL" -e SECURE_CHANNEL_TYPE="ANY_CHANNEL"  odk/sqlserver_endpoint
-```
+ If your LDAP server uses a self-signed CA certificate, have it available to the container with the following command: 
 
-You can modify the aggregate version by specifying yours git repositiory url to the `REPO` build arg and your branch to the `REPO_BRANCH` build arg.
+ `docker config create org.opendatakit.sync.ldapcert PATH_TO_CERT`
+
+You can start the container with the following command (with example values): 
+
+`docker service create -p 80:8080 --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' odk/sqlserver_endpoint`
 
 To run with https support, 
  - build a keystore containing your certificate by following instructions [here](https://www.godaddy.com/help/tomcat-generate-csrs-and-install-certificates-5239)
  - create a Docker secret containing the keystore, `docker secret create odksync-tomcat.keystore <PATH_TO_KEYSTORE>`
- - start the Docker service (with example values for the environment variables):
- ```
- docker service create -p 443:8443 --secret odksync-tomcat.keystore -e SERVER_URL="0.0.0.0" -e SERVER_PORT="80" -e SERVER_SECURE_PORT="443" -e DB_URL="dbname.database.windows.net:1433" -e DB_NAME='odk_prod' -e DB_USERNAME="login@domain.com" -e DB_PASSWORD="PASSWORD" -e DB_SCHEMA="schema_name" -e LDAP_DOMAIN_L1="com" -e LDAP_DOMAIN_L2="domain" -e LDAP_USERNAME="ldap_reader@domain.com" -e LDAP_PASSWORD="PASSWORD" -e REALM_STRING="Sync Endpoint" -e GROUP_PREFIX="ldap_group" -e CHANNEL_TYPE="REQUIRES_SECURE_CHANNEL" -e SECURE_CHANNEL_TYPE="REQUIRES_SECURE_CHANNEL"  odk/sqlserver_endpoint
- ```
+ - start the Docker service (with example values for the environment variables), `docker service create -p 443:8443 --secret odksync-tomcat.keystore --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' odk/sqlserver_endpoint`
