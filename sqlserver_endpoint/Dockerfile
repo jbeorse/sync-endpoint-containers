@@ -1,7 +1,7 @@
 FROM maven:3-jdk-8 as compiler
 
-ARG REPO=https://github.com/linl33/experimental-sync-endpoint
-ARG REPO_BRANCH=container-config
+ARG REPO=https://github.com/jbeorse/experimental-sync-endpoint
+ARG REPO_BRANCH=sync-endpoint
 
 RUN git clone -b ${REPO_BRANCH} --single-branch --depth=1 ${REPO} sync
 
