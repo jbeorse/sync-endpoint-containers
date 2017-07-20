@@ -10,8 +10,8 @@ You can modify the aggregate version by specifying your git repositiory url to t
 After it finished building, create `security.properties`, `jdbc.properties` and `logging.properties` to override the [default configuration](https://github.com/jbeorse/experimental-sync-endpoint/tree/sync-endpoint/src/main/resources/common). 
 
 After creating the files, use these commands to make the files available to the container.
- - `docker secrets create org.opendatakit.aggregate.security.properties PATH_TO_security.properties`
- - `docker secrets create org.opendatakit.aggregate.jdbc.properties PATH_TO_jdbc.properties`
+ - `docker secret create org.opendatakit.aggregate.security.properties PATH_TO_security.properties`
+ - `docker secret create org.opendatakit.aggregate.jdbc.properties PATH_TO_jdbc.properties`
  - `docker config create org.opendatakit.aggregate.logging.properties PATH_TO_logging.properties`
 
  Select your preferred data persistence method with the `spring.profiles.active` environment variable. Currently supported options are `mysql`, `postgres` and `sqlserver`. 
