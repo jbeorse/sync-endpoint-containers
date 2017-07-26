@@ -9,6 +9,8 @@ You can modify the aggregate version by specifying your git repositiory url to t
 ## Prerequisites
 
 You must have installed Docker 17.06 or newer, and be running in [swarm mode](https://docs.docker.com/engine/swarm/).
+ - To install [Docker](https://docs.docker.com/engine/installation/)
+ - To create a [Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 
 Windows Containers are not currently supported. To clarify, Linux based containers running on a Windows host should be fine, but Windows based containers are not supported.
 
