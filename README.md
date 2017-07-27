@@ -27,7 +27,7 @@ After creating the files, use these commands to make the files available to the 
 
 For example, you can start the container with the following command (with example values and a sqlserver database): 
 
-`docker service create -p 80:8080 --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' odk/sqlserver_endpoint`
+`docker service create -p 80:8080 --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' <orgname>/sync_endpoint`
 
 #### LDAP
 
