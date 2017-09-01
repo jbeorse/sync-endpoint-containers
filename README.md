@@ -1,7 +1,7 @@
 ## Build 
 
 To build the image run the following command (you could also clone the repository and build it locally):
-`docker build -t <orgname>/sync_endpoint https://github.com/jbeorse/sync-endpoint-containers.git`
+`docker build --pull -t <orgname>/sync_endpoint https://github.com/jbeorse/sync-endpoint-containers.git`
 
 You can modify the aggregate version by specifying your git repositiory url to the `REPO` build arg and your branch to the `REPO_BRANCH` build arg.
 `docker build --build-arg REPO='https://github.com/jbeorse/experimental-sync-endpoint.git' --build-arg REPO_BRANCH='sync-endpoint' -t <orgname>/sync_endpoint https://github.com/jbeorse/sync-endpoint-containers.git`
@@ -10,11 +10,11 @@ You can modify the aggregate version by specifying your git repositiory url to t
 
 You can use `Dockerfile.dev` to build from the `target` directory instead of having Docker pull in the lastest version and building it.
 
-`docker build -t odk/sync_endpoint -f Dockerfile.dev .`
+`docker build --pull -t odk/sync_endpoint -f Dockerfile.dev .`
 
 ## Prerequisites
 
-You must have installed Docker 17.06 or newer, and be running in [swarm mode](https://docs.docker.com/engine/swarm/).
+You must have installed Docker 17.06.1 or newer, and be running in [swarm mode](https://docs.docker.com/engine/swarm/).
  - To install [Docker](https://docs.docker.com/engine/installation/)
  - To create a [Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 
