@@ -1,10 +1,10 @@
 ## Build 
 
 To build the image run the following command (you could also clone the repository and build it locally):
-`docker build --pull -t <orgname>/sync_endpoint https://github.com/jbeorse/sync-endpoint-containers.git`
+`docker build --pull -t <orgname>/sync_endpoint https://github.com/opendatakit/sync-endpoint-containers.git`
 
 You can modify the aggregate version by specifying your git repositiory url to the `REPO` build arg and your branch to the `REPO_BRANCH` build arg.
-`docker build --build-arg REPO='https://github.com/jbeorse/experimental-sync-endpoint.git' --build-arg REPO_BRANCH='sync-endpoint' -t <orgname>/sync_endpoint https://github.com/jbeorse/sync-endpoint-containers.git`
+`docker build --build-arg REPO='https://github.com/opendatakit/sync-endpoint.git' --build-arg REPO_BRANCH='master' -t <orgname>/sync_endpoint https://github.com/opendatakit/sync-endpoint-containers.git`
 
 ## Development Build 
 
@@ -22,7 +22,7 @@ Windows Containers are not currently supported. To clarify, Linux based containe
 
 ## Run 
 
-After it finished building, create `security.properties`, `jdbc.properties` and `logging.properties` to override the [default configuration](https://github.com/jbeorse/experimental-sync-endpoint/tree/sync-endpoint/src/main/resources/common). 
+After it finished building, create `security.properties`, `jdbc.properties` and `logging.properties` to override the [default configuration](https://github.com/opendatakit/sync-endpoint/tree/master/src/main/resources/common). 
 
 After creating the files, use these commands to make the files available to the container.
  - `docker secret create org.opendatakit.aggregate.security.properties PATH_TO_security.properties`
@@ -41,7 +41,7 @@ If you have an LDAP server that uses a certificate that is issued by a self-sign
 
  `docker config create org.opendatakit.sync.ldapcert PATH_TO_CERT`
 
-If you want to deploy an LDAP container, refer to this [repository](https://github.com/jbeorse/sync-endpoint-ldap).
+If you want to deploy an LDAP container, refer to this [repository](https://github.com/opendatakit/sync-endpoint-default-setup).
 
 #### HTTPS
 
