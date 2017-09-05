@@ -22,30 +22,4 @@ Windows Containers are not currently supported. To clarify, Linux based containe
 
 ## Run 
 
-After it finished building, create `security.properties`, `jdbc.properties` and `logging.properties` to override the [default configuration](https://github.com/opendatakit/sync-endpoint/tree/master/src/main/resources/common). 
-
-After creating the files, use these commands to make the files available to the container.
- - `docker secret create org.opendatakit.aggregate.security.properties PATH_TO_security.properties`
- - `docker secret create org.opendatakit.aggregate.jdbc.properties PATH_TO_jdbc.properties`
- - `docker config create org.opendatakit.aggregate.logging.properties PATH_TO_logging.properties`
-
- Select your preferred data persistence method with the `spring.profiles.active` environment variable. Currently supported options are `mysql`, `postgres` and `sqlserver`. Note that you must set up your own database before starting the endpoint. 
-
-For example, you can start the container with the following command (with example values and a sqlserver database): 
-
-`docker service create -p 80:8080 --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' <orgname>/sync_endpoint`
-
-#### LDAP
-
-If you have an LDAP server that uses a certificate that is issued by a self-signed CA, make the public key of the CA available to the container with the following command: 
-
- `docker config create org.opendatakit.sync.ldapcert PATH_TO_CERT`
-
-If you want to deploy an LDAP container, refer to this [repository](https://github.com/opendatakit/sync-endpoint-default-setup).
-
-#### HTTPS
-
-To run with https support, 
- - build a keystore containing your certificate by following instructions [here](https://www.godaddy.com/help/tomcat-generate-csrs-and-install-certificates-5239)
- - create a Docker secret containing the keystore, `docker secret create odksync-tomcat.keystore <PATH_TO_KEYSTORE>`
- - start the Docker service (with example values for the environment variables), `docker service create -p 443:8443 --secret odksync-tomcat.keystore --secret org.opendatakit.aggregate.security.properties --secret org.opendatakit.aggregate.jdbc.properties --config org.opendatakit.aggregate.logging.properties --config org.opendatakit.sync.ldapcert -e spring.profiles.active='sqlserver' odk/sqlserver_endpoint`
+Refer to [sync-endpoint-default-setup](https://github.com/opendatakit/sync-endpoint-default-setup) for configuration. `docker-compose.yml` in that repository contains a working setup of Sync Endpoint, you could use that as a reference for configuration. 
